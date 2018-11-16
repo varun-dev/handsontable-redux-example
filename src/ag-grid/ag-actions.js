@@ -13,3 +13,8 @@ export const deleteAction = (ids) => ({
   type: AG.DELETE,
   payload: ids
 })
+
+export const updateAction = (id, colId, value) => ({
+  type: AG.UPDATE,
+  payload: { id, colId, value }
+})

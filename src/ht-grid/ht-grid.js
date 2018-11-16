@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {HotTable} from '@handsontable/react'
+import { HotTable } from '@handsontable/react'
 
 import Toolbar from '../components/toolbar'
-import { createAction, updateAction, updateReadOnlyAction } from './ht-actions'
+import {
+  createAction,
+  updateAction,
+  updateReadOnlyAction,
+  deleteAction
+} from './ht-actions'
 import 'handsontable/dist/handsontable.min.css'
 
 class HtGrid extends React.Component {
@@ -16,8 +21,12 @@ class HtGrid extends React.Component {
   }
 
   onBeforeHotChange = (changes, source) => {
-    this.props.updateData(changes)
+    this.props.updateAction(changes)
     return false
+  }
+
+  onDelete = () => {
+    console.log('#', this.hotTableComponent.current.hotInstance)
   }
 
   toggleReadOnly(event) {
@@ -51,6 +60,7 @@ class HtGrid extends React.Component {
               beforeRender={console.time.bind(null, 'HotRender')}
               afterRender={console.timeEnd.bind(null, 'HotRender')}
               settings={this.props.updates}
+              columnSorting={true}
             />
           </div>
         </div>
@@ -61,17 +71,19 @@ class HtGrid extends React.Component {
 
 HtGrid.propTypes = {
   updates: PropTypes.object,
-  updateData: PropTypes.func,
+  updateAction: PropTypes.func,
   updateReadOnly: PropTypes.func,
-  createAction: PropTypes.func
+  createAction: PropTypes.func,
+  deleteAction: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({ updates: state.handsontable })
 
 const mapDispatchToProps = ({
-  updateData: updateAction,
+  updateAction,
   updateReadOnly: updateReadOnlyAction,
-  createAction: createAction
+  createAction,
+  deleteAction
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HtGrid)

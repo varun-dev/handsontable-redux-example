@@ -8,16 +8,26 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 import Toolbar from '../components/toolbar'
+import CellEditor from './ag-cell-editor'
 import { fields } from '../utils'
-import { createAction, deleteAction } from './ag-actions'
+import { createAction, deleteAction, updateAction } from './ag-actions'
 
 class AgGrid extends Component {
   constructor(props) {
     super(props);
     this.api = React.createRef()
     this.state = {
-      columnDefs: ['id', ...fields].map(key => ({ headerName: key, field: key, editable: true }))
+      columnDefs: ['id', ...fields].map(key => ({
+        headerName: key,
+        field: key,
+        editable: true,
+        cellEditor: CellEditor(this.onChange)
+      }))
     }
+  }
+
+  onChange = (id, colId, value) => {
+    this.props.updateAction(id, colId, value)
   }
 
   onDelete = () => {
@@ -57,12 +67,14 @@ class AgGrid extends Component {
 AgGrid.propTypes = {
   data: PropTypes.array,
   createAction: PropTypes.func,
-  deleteAction: PropTypes.func
+  deleteAction: PropTypes.func,
+  updateAction: PropTypes.func
 }
 
 const mapDispatchToProps = {
   createAction,
-  deleteAction
+  deleteAction,
+  updateAction
 }
 
 const mapStateToProps = (state) => ({ data: state.ag.data })

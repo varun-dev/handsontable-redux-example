@@ -14,6 +14,11 @@ export const updateAction = dataChanges => ({
   dataChanges
 })
 
+export const deleteAction = dataChanges => ({
+  type: HT.UPDATE,
+  dataChanges
+})
+
 export const updateReadOnlyAction = readOnly => ({
   type: 'updateReadOnly',
   readOnly
