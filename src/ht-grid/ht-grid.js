@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {HotTable} from '@handsontable/react'
 
-import { updateDataAction, updateReadOnlyAction } from './redux'
+import Toolbar from '../components/toolbar'
+import { createAction, updateAction, updateReadOnlyAction } from './ht-actions'
 import 'handsontable/dist/handsontable.min.css'
 
-class MyComponent extends React.Component {
+class HtGrid extends React.Component {
   constructor(props) {
     super(props)
 
@@ -26,6 +27,10 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div className="redux-example-container">
+        <Toolbar
+          onCreate={this.props.createAction}
+          onDelete={this.onDelete}
+        />
         <div id="example-container">
           <div id="example-preview" className="hot">
             <div id="toggle-boxes">
@@ -54,17 +59,19 @@ class MyComponent extends React.Component {
   }
 }
 
-MyComponent.propTypes = {
+HtGrid.propTypes = {
   updates: PropTypes.object,
   updateData: PropTypes.func,
-  updateReadOnly: PropTypes.func
+  updateReadOnly: PropTypes.func,
+  createAction: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({ updates: state.handsontable })
 
 const mapDispatchToProps = ({
-  updateData: updateDataAction,
-  updateReadOnly: updateReadOnlyAction
+  updateData: updateAction,
+  updateReadOnly: updateReadOnlyAction,
+  createAction: createAction
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(HtGrid)

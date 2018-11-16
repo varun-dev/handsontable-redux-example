@@ -1,6 +1,15 @@
 import faker from 'faker'
 
-export const fields = [ 'lastName', 'firstName', 'jobTitle', 'prefix', 'suffix', 'title', 'jobDescriptor', 'jobArea' ]
+export const fields = [
+  'lastName',
+  'firstName',
+  'jobTitle',
+  'prefix',
+  'suffix',
+  'title',
+  'jobDescriptor',
+  'jobArea'
+]
 
 export function getArrayData(dataSize) {
   console.time('getArrayData')
@@ -10,11 +19,12 @@ export function getArrayData(dataSize) {
   return data
 }
 
-export function getObjectData(dataSize) {
+export function getObjectData(dataSize, id = 1) {
   console.time('getObjectData')
   const data = new Array(dataSize).fill(undefined)
     .map((e = {}) => {
       fields.forEach(key => e[key] = faker.name[key]())
+      e.id = id++
       return e
     })
   console.timeEnd('getObjectData')

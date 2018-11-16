@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@handsontable/react": "^2.0.0",
     "ag-grid-community": "^19.1.2",
     "ag-grid-react": "^19.1.2",
+    "antd": "^3.10.7",
+    "faker": "^4.1.0",
+    "handsontable": "^6.1.1",
+    "prop-types": "^15.6.2",
+    "ramda": "^0.25.0",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
-    "react-scripts": "2.1.1",
-    "@handsontable/react": "^2.0.0",
-    "handsontable": "^6.1.1",
-    "redux": "^4.0.1",
     "react-redux": "^5.1.1",
-    "prop-types": "^15.6.2",
-    "faker": "^4.1.0"
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
