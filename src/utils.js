@@ -30,3 +30,4 @@ export function getObjectData(dataSize, id = 1) {
   console.timeEnd('getObjectData')
   return data
 }
+

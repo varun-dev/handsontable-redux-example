@@ -1,29 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { prop } from 'ramda'
 
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import { AgGridReact } from 'ag-grid-react'
+import 'ag-grid-community/dist/styles/ag-grid.css'
+import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 
 import Toolbar from '../components/toolbar'
-import CellEditor from './ag-cell-editor'
-import { fields } from '../utils'
+import { getColumnsDefs } from './ag-grid-columns'
 import { createAction, deleteAction, updateAction } from './ag-actions'
 
 class AgGrid extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.api = React.createRef()
-    this.state = {
-      columnDefs: ['id', ...fields].map(key => ({
-        headerName: key,
-        field: key,
-        editable: true,
-        cellEditor: CellEditor(this.onChange)
-      }))
-    }
+    this.state = { columnDefs: getColumnsDefs(this.onChange) }
   }
 
   onChange = (id, colId, value) => {
@@ -60,7 +52,7 @@ class AgGrid extends Component {
           </AgGridReact>
         </div>
       </div>
-    );
+    )
   }
 }
 
